@@ -3,6 +3,7 @@ package ru.rosbank.javaschool.datasource;
 import lombok.val;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.QualifierAnnotationAutowireCandidateResolver;
+import org.springframework.beans.factory.config.RuntimeBeanReference;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -78,15 +79,10 @@ class ConnectionTest {
         });
 
         context.registerBean("dbsource", SQLiteDataSource.class);
-        context.registerBean("connector", ProgrammaticConnector.class, () -> {
-            String url = "${url}";
-            String login = "${login}";
-            String password = "${password}";
-            SQLiteDataSource datasource = (SQLiteDataSource) context.getBean("dbsource");
-            return new ProgrammaticConnector(url,login, password, datasource);
-        });
+        context.registerBean("connector", ProgrammaticConnector.class, "${url}", "${login}", "${password}", new RuntimeBeanReference("dbsource"));
         context.refresh();
         ProgrammaticConnector bean = context.getBean(ProgrammaticConnector.class);
+        System.out.println(bean.toString());
         assertEquals("Programmatic Connect!",bean.Connect());
     }
 
