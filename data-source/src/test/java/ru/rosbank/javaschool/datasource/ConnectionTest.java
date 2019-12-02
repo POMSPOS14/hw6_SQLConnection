@@ -82,7 +82,6 @@ class ConnectionTest {
         context.registerBean("connector", ProgrammaticConnector.class, "${url}", "${login}", "${password}", new RuntimeBeanReference("dbsource"));
         context.refresh();
         ProgrammaticConnector bean = context.getBean(ProgrammaticConnector.class);
-        System.out.println(bean.toString());
         assertEquals("Programmatic Connect!",bean.Connect());
     }
 
