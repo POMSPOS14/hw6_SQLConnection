@@ -1,9 +1,14 @@
 package ru.rosbank.javaschool.datasource.java;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.sqlite.SQLiteDataSource;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+
+@Getter
+@Setter
 
 public class JavaConnector {
     private SQLiteDataSource sqLiteDataSource;
@@ -18,7 +23,7 @@ public class JavaConnector {
         this.password = password;
     }
 
-    public String Connect() throws SQLException {
+    public String connect() throws SQLException {
         sqLiteDataSource.setUrl(url);
         try (Connection connection = sqLiteDataSource.getConnection(username, password)){
             return "Java Connect!";

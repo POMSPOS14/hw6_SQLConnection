@@ -1,8 +1,8 @@
 package ru.rosbank.javaschool.datasource.programmatic;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.sqlite.SQLiteDataSource;
 
 import java.sql.Connection;
@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 @Setter
 @Getter
-
+@ToString
 
 public class ProgrammaticConnector {
 
@@ -27,20 +27,12 @@ public class ProgrammaticConnector {
         this.sqLiteDataSource = sqLiteDataSource;
     }
 
-    public String Connect() throws SQLException {
+    public String connect() throws SQLException {
         sqLiteDataSource.setUrl(url);
-        try (Connection connection = sqLiteDataSource.getConnection(username, password)){
+        try (Connection connection = sqLiteDataSource.getConnection(username, password)) {
             return "Programmatic Connect!";
         }
     }
 
-    @Override
-    public String toString() {
-        return "ProgrammaticConnector{" +
-                "url='" + url + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", sqLiteDataSource=" + sqLiteDataSource +
-                '}';
-    }
+
 }

@@ -8,18 +8,18 @@ import org.springframework.core.io.ClassPathResource;
 import org.sqlite.SQLiteDataSource;
 
 public class JavaConfiguration {
-    @Bean // BFPP
+    @Bean
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
         val configurer = new PropertySourcesPlaceholderConfigurer();
         configurer.setLocation(new ClassPathResource("db.properties"));
         return configurer;
     }
     @Bean
-    public SQLiteDataSource sqLiteDataSource () {
+    public SQLiteDataSource sqLiteDataSource() {
       return new SQLiteDataSource();
     }
 
-    @Bean // name -> method name
+    @Bean
     public JavaConnector connector(SQLiteDataSource sqLiteDataSource, @Value("${url}") String url, @Value("${login}") String username, @Value("${password}") String password){
         return new JavaConnector(sqLiteDataSource,url,username,password);
     }

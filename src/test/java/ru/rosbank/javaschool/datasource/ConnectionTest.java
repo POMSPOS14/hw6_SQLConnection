@@ -33,21 +33,28 @@ class ConnectionTest {
         new XmlBeanDefinitionReader(context).loadBeanDefinitions("context.xml");
         context.refresh();
         XmlConnector bean = context.getBean(XmlConnector.class);
-        assertEquals("Xml Connect!",bean.Connect());
+        System.out.println(bean.toString());
+        assertEquals(bean.getUsername(),"admin");
+        assertEquals(bean.getPassword(),"123");
+        assertEquals("Xml Connect!",bean.connect());
     }
 
     @Test
     void AnnotationConnection() throws SQLException {
         val context = new AnnotationConfigApplicationContext("ru.rosbank.javaschool.datasource.annotation");
         AnnotationConnector bean = context.getBean(AnnotationConnector.class);
-        assertEquals("Annotation Connect!",bean.Connect());
+        assertEquals(bean.getUsername(),"admin");
+        assertEquals(bean.getPassword(),"123");
+        assertEquals("Annotation Connect!",bean.connect());
     }
 
     @Test
     void GroovyConnection() throws SQLException {
-        val context = new GenericGroovyApplicationContext("context.groovy");
+        val context = new GenericGroovyApplicationContext( "context.groovy");
         GroovyConnector bean = context.getBean(GroovyConnector.class);
-        assertEquals("Groovy Connect!",bean.Connect());
+        assertEquals(bean.getUsername(),"admin");
+        assertEquals(bean.getPassword(),"123");
+        assertEquals("Groovy Connect!",bean.connect());
     }
 
     @Test
@@ -58,7 +65,10 @@ class ConnectionTest {
         BeansKt.getBeans().initialize(context);
         context.refresh();
         KotlinConnector bean = context.getBean(KotlinConnector.class);
-        assertEquals("Kotlin Connect!",bean.Connect());
+        System.out.println(bean.toString());
+        assertEquals(bean.getUsername(),"admin");
+        assertEquals(bean.getPassword(),"123");
+        assertEquals("Kotlin Connect!",bean.connect());
     }
 
 
@@ -66,7 +76,9 @@ class ConnectionTest {
     void JavaConnection() throws SQLException {
         val context = new AnnotationConfigApplicationContext(JavaConfiguration.class);
         JavaConnector bean = context.getBean(JavaConnector.class);
-        assertEquals("Java Connect!",bean.Connect());
+        assertEquals(bean.getUsername(),"admin");
+        assertEquals(bean.getPassword(),"123");
+        assertEquals("Java Connect!",bean.connect());
     }
 
     @Test
@@ -82,7 +94,9 @@ class ConnectionTest {
         context.registerBean("connector", ProgrammaticConnector.class, "${url}", "${login}", "${password}", new RuntimeBeanReference("dbsource"));
         context.refresh();
         ProgrammaticConnector bean = context.getBean(ProgrammaticConnector.class);
-        assertEquals("Programmatic Connect!",bean.Connect());
+        assertEquals(bean.getUsername(),"admin");
+        assertEquals(bean.getPassword(),"123");
+        assertEquals("Programmatic Connect!",bean.connect());
     }
 
 
